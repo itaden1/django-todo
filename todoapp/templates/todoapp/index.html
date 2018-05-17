@@ -1,0 +1,38 @@
+{% extends 'todoapp/base.html' %}
+
+{% block content %}
+
+<div class="card">
+	<div class="card-body">	
+		<h1 class="card-title">To Do List</h1>
+		<hr/>
+		<form class="form-group" method="post">
+			{% csrf_token %}
+			{% for field in form %}
+				{{ field.label_tag }}<br/>
+				{{ field }}
+			{% endfor %}
+			<input class="btn btn-success btn-sm" type="submit" value="Add Item">	
+		</form>
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a class="nav-link {% if page == 'pending'%}active{% endif %}" href="/pending">Pending</a></li>
+			<li class="nav-item"><a class="nav-link {% if page == 'complete'%}active{% endif %}" href="/complete">Complete</a></li>
+			<li class="nav-item"><a class="nav-link {% if page == 'all'%}active{% endif %}" href="/">All</a></li>
+		</ul>
+		<form class="form-group" method="post">
+		{% if items %}
+		<table class="table table-striped">
+			{% for i in items %}
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td>{{ i.todo_item }}</td>
+					<td><a class="btn btn-success btn-sm" href="mark-done/{{ i.id }}">&#10004;</a></td>
+					<td><a class="btn btn-danger btn-sm" href="delete/{{ i.id }}">X</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		</form>
+	</div>
+</div>
+{% endblock %}

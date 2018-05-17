@@ -1,0 +1,9 @@
+body{
+	background-color:#f5f5f5;
+}
+.btn{
+	vertical-align:top;
+}
+.btn-sm{
+	border-radius:0;
+}
